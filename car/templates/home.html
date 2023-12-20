@@ -1,0 +1,163 @@
+{% extends "base.html" %} {% load static %}
+
+<div></div>
+{% block body %}
+<div class="container my-5">
+  <div
+    id="carouselExampleInterval"
+    class="carousel slide pt-4 mb-5"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <div class="card">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <img
+                src="https://img.freepik.com/free-vector/red-sedan-car-isolated-white-vector_53876-64366.jpg?w=740&t=st=1703061964~exp=1703062564~hmac=f6799f358378b12a2351864fdada5f5d507bdb49f86837fa0da6ea3a55c404c6"
+                class="img-fluid rounded-start"
+                alt="..."
+              />
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+              <div class="card-body">
+                <h5 class="card-title fs-3">
+                  BUYING <br />
+                  A NEW CAR
+                </h5>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural
+                  lead-in to additional content. This content is a little bit
+                  longer.
+                </p>
+                <button class="btn btn-secondary">LEARN MORE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <div class="card">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <img
+                src="https://img.freepik.com/free-vector/blue-sedan-car-isolated-white-vector_53876-67352.jpg?w=740&t=st=1703063824~exp=1703064424~hmac=393d06ea0de879e8573683af6f9bdd7a57eefcbc494c87e3559046972b81f8bd"
+                class="img-fluid rounded-start"
+                alt="..."
+              />
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+              <div class="card-body">
+                <h5 class="card-title fs-3">
+                  BUYING <br />
+                  A NEW CAR
+                </h5>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural
+                  lead-in to additional content. This content is a little bit
+                  longer.
+                </p>
+                <button class="btn btn-secondary">LEARN MORE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="card">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <img
+                src="https://img.freepik.com/free-photo/view-3d-car-with-simple-background_23-2150998524.jpg?t=st=1703063886~exp=1703067486~hmac=49595cd1a78d54118ddde7c59a4263dca3413d302e7a230f6e0b44203ba81366&w=740"
+                class="img-fluid rounded-start"
+                alt="..."
+              />
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+              <div class="card-body">
+                <h5 class="card-title fs-3">
+                  BUYING <br />
+                  A NEW CAR
+                </h5>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural
+                  lead-in to additional content. This content is a little bit
+                  longer.
+                </p>
+                <button class="btn btn-secondary">LEARN MORE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleInterval"
+      data-bs-slide="prev"
+    >
+      <span
+        class="carousel-control-prev-icon bg-warning"
+        aria-hidden="true"
+      ></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleInterval"
+      data-bs-slide="next"
+    >
+      <span
+        class="carousel-control-next-icon bg-warning"
+        aria-hidden="true"
+      ></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'brand_wise_product' 'all' %}">All</a>
+    </li>
+    {% for dt in brands %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'brand_wise_product' dt.name %}"
+        >{{dt.name}}</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
+
+  <h3 class="mt-5 mb-4">Totall Car Found: {{data | length}}</h3>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for dt in data %}
+    <div class="col">
+      <div class="card">
+        <img
+          src="{{dt.image.url}}"
+          class="card-img-top"
+          style="height: 200px; object-fit: cover"
+          alt="..."
+        />
+        <div class="card-body">
+          <span class="car-brand fw-medium text-secondary">{{dt.brand}}</span>
+          <h3 class="card-title fw-bolder fs-3">{{dt.name}}</h3>
+          <h4>BDT: {{dt.price}}</h4>
+          <div>
+            <a href="{% url 'car_details' dt.id%}">
+              <button class="btn btn-outline-warning w-100">
+                VIEW DETAILS
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+{% endblock body %}
