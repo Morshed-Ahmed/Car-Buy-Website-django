@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import RegisterUser
+from .forms import RegisterUser,ChangeUserData
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login,logout
@@ -41,4 +41,12 @@ def LogOut(request):
 
 def profile(request):
     car_data = CarBuy.objects.filter(name =request.user)
-    return render(request,'profile.html',{'car_data':car_data})
+    if request.method == 'POST':
+        form = ChangeUserData(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account updated successfully')
+    else:
+        form = ChangeUserData(instance=request.user)
+    
+    return render(request,'profile.html',{'car_data':car_data,'form':form})

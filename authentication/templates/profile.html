@@ -2,15 +2,79 @@
 <div></div>
 {% block body %}
 <div class="container my-5">
+  {% comment %} PROFILE DATA DISPLY {% endcomment %}
   <div class="card mb-5" style="width: 18rem">
     <div class="card-body">
       <h5 class="card-title">Name : {{user | capfirst}}</h5>
       <h6 class="card-subtitle mb-2 text-body-secondary">
         Email: {{user.email}}
       </h6>
+
+      <button
+        type="button"
+        class="btn btn-secondary btn-sm mt-3"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        data-bs-whatever="@mdo"
+      >
+        Edit Profile
+      </button>
     </div>
   </div>
 
+  {% comment %} PROFILE EDIT MODAL {% endcomment %}
+
+  <div>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Update Profile
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            {% load crispy_forms_tags %}
+            <form method="post" novalidate>
+              {% csrf_token %}
+              <!-- {{form | crispy }} -->
+              {% for fm in form %}
+              <div>
+                {{fm.label_tag}} {{fm}}
+                <br />
+                {{fm.errors|striptags}}
+              </div>
+              {% endfor %}
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} BUYING CAR DISPLY {% endcomment %}
   <div>
     <h3>All Buying Cars</h3>
   </div>

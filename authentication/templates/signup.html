@@ -5,8 +5,12 @@
   {% if messages %} {% for m in messages %}
   <small {% if m.tags %} class="{{m.tags}}" {% endif %}>{{m}}</small>
   {% endfor %} {% endif %}
-  <h1>this is register</h1>
-  <form class="w-50 mx-auto" method="post" novalidate>
+
+  <form
+    class="w-50 mx-auto bg-secondary p-4 rounded mt-5 text-light"
+    method="post"
+    novalidate
+  >
     {% csrf_token %}
     <!-- {{form | crispy }} -->
     {% for fm in form%}
